@@ -4,7 +4,7 @@ using namespace std;
 using ll = long long;
 using pii = pair<int,int>;
 
-struct Djikstra {
+struct Dijkstra {
   int n;
   const long long INF = 1e16;
   vector<long long> d;
@@ -12,13 +12,13 @@ struct Djikstra {
   vector<vector<pii>> adj;
   vector<vector<pii>> revadj;
 
-  Djikstra(int _n):n(_n) {
+  Dijkstra(int _n):n(_n) {
     d.resize(n); pred.resize(n); adj.resize(n); revadj.resize(n);
   }
   void add_edge(int u, int v, int w) {
     adj[u].push_back({v,w}); revadj[v].push_back({u,w});
   }
-  void djikstra(int s) {
+  void dijkstra(int s) {
     for (int i = 0; i< n; i++) pred[i] = -1, d[i] = INF; // reset
     d[s] = 0;
     priority_queue<pii,vector<pii>,greater<pii>> q;
