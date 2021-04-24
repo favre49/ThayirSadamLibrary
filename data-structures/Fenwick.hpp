@@ -4,7 +4,7 @@ using namespace std;
 template <class T = int>
 struct Fenwick {
   vector<T> t;
-  T tn;
+  int tn;
 
   Fenwick(int _n) {
     assert(_n > 0);
@@ -24,7 +24,7 @@ struct Fenwick {
   T query(int x) {
     assert(x < tn);
     x++;
-    int res = 0;
+    T res = 0;
     while (x > 0) {
       res += t[x];
       x -= (x&-x);

@@ -14,6 +14,10 @@ template <typename U, typename V> struct pairnum {
  
   friend bool operator == (const pairnum& a, const pairnum& b) { return a.u == b.u && a.v == b.v; }
   friend bool operator != (const pairnum& a, const pairnum& b) { return a.u != b.u || a.v != b.v; }
+  bool operator < (const pairnum& o) const {
+    if (u==o.u) return v < o.v;
+    return u < o.u;
+  }
  
   pairnum inv() const {
     return pairnum(u.inv(), v.inv());
