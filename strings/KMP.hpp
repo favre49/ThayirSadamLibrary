@@ -17,3 +17,12 @@ vector<int> prefix_func(string s)
   }
   return pi;
 }
+
+// find pat in s
+vector<int> kmp(const string& s, const string& pat) {
+  vector<int> p = prefix_func(pat+'\0'+s), res;
+  for (int i = (int)p.size() - (int)s.size(); i < p.size(); i++)
+    if (p[i] == pat.size())
+      res.push_back(i - 2*pat.size());
+  return res;
+}
