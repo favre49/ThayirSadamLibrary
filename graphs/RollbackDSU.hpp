@@ -19,7 +19,7 @@ struct RollbackDSU {
   int find(int v) {
     return (nodes[v].p != v?find(nodes[v].p):v);
   }
-  void merge(int a, int b){
+  bool merge(int a, int b){
     int fe = a, se = b;
     a = find(a), b = find(b);
     q.push_back({a,nodes[a]});
@@ -28,7 +28,9 @@ struct RollbackDSU {
       if (nodes[a].s < nodes[b].s) swap(a,b);
       nodes[b].p = a;
       nodes[a].s += nodes[b].s;
+      return true;
     }
+    return false;
   }
 
   void rollback(int k) {
