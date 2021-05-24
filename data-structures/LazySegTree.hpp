@@ -22,9 +22,11 @@ struct LazySegTree {
     lz[node] = ID;
   }
   LazySegTree() {}
-  LazySegTree(int _n) : n(_n), t(4*n+5,E), lz(4*n+5,ID) {
+  LazySegTree(int _n) : n(_n){
+    t.assign(4*n+5,E); lz.assign(4*n+5,ID);
   }
   LazySegTree(vector<T>& bld) : n(bld.size()), t(4*n+5,E), lz(4*n+5,ID) {
+    t.assign(4*n+5,E); lz.assign(4*n+5,ID);
     build(bld,1,0,n-1);
   }
   void build(vector<T>& bld, int node, int tl, int tr) {

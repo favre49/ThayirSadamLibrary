@@ -11,8 +11,11 @@ struct SegTree {
     return a+b;
   }
   SegTree() {}
-  SegTree(int _n) : n(_n), t(4*n+5,E) {}
-  SegTree(vector<T>& bld) : n(bld.size()), t(4*n+5,E) {
+  SegTree(int _n) : n(_n){
+    t.assign(4*n+5,E);
+  }
+  SegTree(vector<T>& bld) : n(bld.size()) {
+    t.assign(4*n+5,E);
     build(bld,1,0,n-1);
   }
   void build(vector<T>& bld, int node, int tl, int tr) {
