@@ -38,6 +38,7 @@ struct RMQ {
         range_low[k][i] = better_index(range_low[k - 1][i], range_low[k - 1][i + (1 << (k - 1))]);
   }
 
+  // Query range [a,b)
   // Note: breaks ties by choosing the largest index.
   int query_index(int a, int b) const {
     assert(0 <= a && a < b && b <= n);
@@ -45,6 +46,7 @@ struct RMQ {
     return better_index(range_low[level][a], range_low[level][b - (1 << level)]);
   }
 
+  // Query range [a,b)
   T query_value(int a, int b) const {
     return values[query_index(a, b)];
   }
