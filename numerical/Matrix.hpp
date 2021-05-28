@@ -22,7 +22,7 @@ struct Mat{
     return d[index];
   }
 
-  Mat operator +(Mat other) {
+  Mat operator +(Mat other) const {
     assert(n == other.n && m == other.m);
     Mat res = Mat(n,m);
     for (int i = 0; i < n; i++)
@@ -31,7 +31,7 @@ struct Mat{
     return res;
   }
 
-  Mat operator -(Mat other) {
+  Mat operator -(Mat other) const {
     assert(n == other.n && m == other.m);
     Mat res = Mat(n,m);
     for (int i = 0; i < n; i++)
@@ -40,7 +40,7 @@ struct Mat{
     return res;
   }
 
-  Mat operator *(Mat other) {
+  Mat operator *(Mat other) const {
     assert(m == other.n);
     Mat prod = Mat(n,other.m);
     for (int i = 0; i < n; i++)
