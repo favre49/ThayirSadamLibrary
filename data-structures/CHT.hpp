@@ -3,6 +3,10 @@ using namespace std;
 
 using ll = long long;
 
+
+// Source: KACTL
+// Tested on: Yosupo Line Add Get Min
+// Add lines of the form kx+m and query the maximum at x
 bool Q;
 struct Line {
   mutable ll k, m, p;
