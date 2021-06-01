@@ -1,7 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// Components are always in reverse topological order!
+// Source : neal
+// Tested on : Yosupo Strongly Connected Components
+// Components are always in reverse topological order
 struct SCC {
   // Graph data
   int n;
@@ -52,7 +54,7 @@ struct SCC {
     }
   }
 
-  void scc() {
+  void build() {
     tour_index.assign(n,-1);
     low_link.assign(n,-1);
     which_component.assign(n,-1);
@@ -68,3 +70,4 @@ struct SCC {
     }
   }
 };
+
