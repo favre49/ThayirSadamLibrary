@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Source: Me
+// Tested On: Yosupo Point Add Range Sum
 template <class T = int>
 struct Fenwick {
   vector<T> t;
@@ -9,7 +11,7 @@ struct Fenwick {
   Fenwick(int _n) {
     assert(_n > 0);
     tn = _n;
-    t = vector<T>(tn+1,0);
+    t = vector<T>(tn+1);
   }
 
   void update(int x, T val) {

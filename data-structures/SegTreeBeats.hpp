@@ -3,6 +3,8 @@ using namespace std;
 
 using ll = long long;
 
+// Source: Me
+// Tested On: Range Chmin Chmax Add Range Sum
 const ll INF = 1e18;
 struct SegTreeBeats {
   struct Beat {

@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Source: koosaga, molamola.
+// Tested On: CF-102920-F, Yosopu Dominator Tree
 // Dominator Tree, a directed tree with root S with edges from the immediate
 // dominator to the vertex.
 // Dominator = necessary vertex to get from S to v

@@ -4,6 +4,9 @@ using namespace std;
 using ll = long long;
 #include "../data-structures/LazySegTree.hpp"
 
+// Source: bqi343
+// Tested On: Yosupo Vertex Add Path Sum
+// Time: O(Nlog^2N)
 // To set initial values, write into val
 struct HLD {
   int n;
