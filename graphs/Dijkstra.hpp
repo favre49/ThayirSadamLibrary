@@ -4,24 +4,27 @@ using namespace std;
 using ll = long long;
 using pii = pair<int,int>;
 
+// Source : me
+// Tested on : Yosupo Shortest Path
+// Use __gnu_pbds::priority_queue to get tiny speed increase
 struct Dijkstra {
+  using dist_type = pair<ll,int>;
   int n;
-  const long long INF = 1e16;
-  vector<long long> d;
+  const ll INF = 1e18;
+  vector<ll> d;
   vector<int> pred;
-  vector<vector<pii>> adj;
-  vector<vector<pii>> revadj;
+  vector<vector<pair<int,ll>>> adj;
 
   Dijkstra(int _n):n(_n) {
-    d.resize(n); pred.resize(n); adj.resize(n); revadj.resize(n);
+    d.resize(n); pred.resize(n); adj.resize(n);
   }
-  void add_edge(int u, int v, int w) {
-    adj[u].push_back({v,w}); revadj[v].push_back({u,w});
+  void add_edge(int u, int v, ll w) {
+    adj[u].push_back({v,w});
   }
   void dijkstra(int s) {
     for (int i = 0; i< n; i++) pred[i] = -1, d[i] = INF; // reset
     d[s] = 0;
-    priority_queue<pii,vector<pii>,greater<pii>> q;
+    priority_queue<dist_type,vector<dist_type>,greater<dist_type>> q;
     q.push({0,s});
     while(!q.empty()) {
       auto [d_v,v] = q.top();
