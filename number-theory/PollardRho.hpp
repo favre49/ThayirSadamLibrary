@@ -5,6 +5,10 @@ using namespace std;
 
 using ull  = unsigned long long;
 
+// Source: KACTL
+// Tested on:
+// Fast prime check and factorization for 64 bit integers
+
 // Miller-Rabin prime check
 bool isPrime(ull n) {
   if (n < 2 || n % 6 % 4 != 1) return (n | 1) == 3;

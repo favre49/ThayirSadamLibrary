@@ -35,6 +35,7 @@ struct RollbackDSU {
     return false;
   }
 
+  // rollback to "time" k
   void rollback(int k) {
     while(q.size() > k) {
       nodes[q.back().first] = q.back().second;

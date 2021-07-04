@@ -1,13 +1,16 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// My simple use lazy segtree
+// Source: Me
+// Tested on: ???
+// Simple to use lazy segtree
+// Change comb, push, E and ID based on problem.
 template<class T>
 struct LazySegTree {
   int n;
   vector<T> t, lz;
-  T E = 0;
-  T ID = 0;
+  T E = 0; // Identity element for segtree data
+  T ID = 0; // Identity element for lazy update
 
   T comb(T a, T b) { // Segtree function
     return a+b;

@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Source: neal
+// Tested on: ???
 template<typename T, bool maximum_mode = false>
 struct RMQ {
   int n = 0;
@@ -16,7 +18,7 @@ struct RMQ {
     return x == 0 ? -1 : 31 - __builtin_clz(x);
   }
 
-  // Note: when , returns b.
+  // Note: when equal, returns b.
   int better_index(int a, int b) const {
     return (maximum_mode ? values[b] < values[a] : values[a] < values[b]) ? a : b;
   }

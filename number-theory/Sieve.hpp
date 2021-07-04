@@ -2,6 +2,10 @@
 
 using namespace std;
 
+// Source: bqi343
+// Tested On:
+// Fast prime sieve in O(NloglogN)
+// Also finds the number of primes <= x
 template <int N = 100007>
 struct Sieve {
   bitset<N> isPrime;

@@ -4,7 +4,9 @@ using namespace std;
 using ll = long long;
 using pii = pair<int,int>;
 
-// More general lazy segtree
+// Source: Me
+// Tested on: ???
+// More general segtree. Remember to set identities.
 struct LazySegTree {
   struct F { // Lazy update
     ll inc = 0;

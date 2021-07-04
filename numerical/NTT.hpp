@@ -3,6 +3,8 @@ using namespace std;
 
 #include "../number-theory/mod_int.hpp"
 
+// Source: neal
+// Tested On:
 template<const int &MOD>
 struct NTT {
   using ntt_int = _m_int<MOD>;

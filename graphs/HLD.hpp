@@ -47,7 +47,7 @@ struct HLD {
     }
   }
 
-  // build with specific root
+  // Build with specific root
   void build(int r = 0) {
     parent[r] = depth[r] = timer = 0;
     size_dfs(r);
@@ -78,23 +78,24 @@ struct HLD {
       op(pos[u] + usingEdge, pos[v]);
     }
 
-  //Updates path
+  // Updates path from u to v
   void update(int u, int v, ll val) {
     process_path(u,v,[this,&val](int l, int r) {
         T.apply(l,r,val);
-        });
+    });
   }
 
-  //Updates subtree
+  // Updates subtree of u
   void update(int u, ll val) {
     T.apply(pos[u] + usingEdge, pos[u] + sz[u] - 1, val);
   }
 
+  // Query path between u and v
   ll query(int u, int v) {
     ll res = 0;
     process_path(u,v, [this, &res](int l, int r) {
         res += T.query(l,r);
-        });
+    });
     return res;
   }
 };

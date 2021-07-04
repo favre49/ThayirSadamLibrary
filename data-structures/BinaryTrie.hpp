@@ -2,9 +2,9 @@
 
 using namespace std;
 
-// Binary Trie
 // Source: Me
 // Tested on: Yosupo Set Xor-Min
+// Binary Trie
 template<int L = 24>
 struct BinaryTrie {
   struct Node {

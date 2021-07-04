@@ -5,7 +5,7 @@ using namespace std;
 // Source: https://codeforces.com/blog/entry/57496
 // Tested On: ABC-187-F
 // Complexity: O(n 2^n)
-// Find the chromatic number given adjacency list
+// Find the chromatic number given adjacency list as bit matrix
 int ChromaticNumber(const vector<int> &g) {
   int n = g.size();
   if (n == 0) return 0;

@@ -1,11 +1,14 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+// Source: Me
+// Tested on: ???
+// Easy to use segtree. Change comb and E based on problem
 template<class T>
 struct SegTree {
   int n;
   vector<T> t;
-  T E = 0;
+  T E = 0; // Identity element
 
   T comb(T a, T b) { // Segtree function
     return a+b;

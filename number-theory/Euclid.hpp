@@ -3,6 +3,7 @@ using namespace std;
 
 using ll = long long;
 
+// Source: ACL
 // returns a pair (g,x) such that:
 // g = gcd(a,b)
 // xa = g mod b

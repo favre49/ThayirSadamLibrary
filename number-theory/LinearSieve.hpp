@@ -1,12 +1,14 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Source: Nisiyama_Suzune
+// Tested on: ???
+// Calculate the value of first n values of multiplicative function in O(n)
 const int N = 1e6+7;
 vector<int> prime;
 bool is_composite[N];
 int f[N], cnt[N];
 
-// Calculate a multiplicative function in O(n) time
 void linear_sieve(int n) {
   f[1] = 1;
   for (int i = 2; i < n; i++) {

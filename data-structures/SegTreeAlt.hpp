@@ -4,7 +4,9 @@ using namespace std;
 using ll = long long;
 using pii = pair<int,int>;
 
-// More general segtree
+// Source: Me
+// Tested on: ???
+// More general segtree. Remember to set identities
 struct SegTree {
   struct T { // Segtree data
     ll sz = 0, sum = 0;

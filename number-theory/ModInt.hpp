@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Source: neal
+// Tested on: ???
+// Modulo operations
 template<const int &MOD>
 struct _m_int {
   int val;

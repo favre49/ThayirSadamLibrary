@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Source: Me
+// Tested on: ???
 struct PersistentSegTree {
   struct SegTreeNode {
     SegTreeNode *l, *r; // Children
@@ -24,6 +26,7 @@ struct PersistentSegTree {
 
   int size() { return (int)roots.size(); }
 
+  // Get node from history
   SegTreeNode*& operator[](int idx) {
     assert(idx < roots.size());
     return roots[idx];
@@ -37,11 +40,12 @@ struct PersistentSegTree {
     return new SegTreeNode(build(tl,tm),build(tm+1,tr));
   }
 
-  // Querying
+  // Query current node for range [l,r]
   int query(int l, int r) {
     return query(roots.back(),l,r,L,R);
   }
 
+  // Query node ind for range [l,r]
   int query(int ind, int l, int r) {
     return query(roots[ind],l,r,L,R);
   }
@@ -53,7 +57,7 @@ struct PersistentSegTree {
     return max(query(v->l,l,min(r,tm),tl,tm),query(v->r,max(l,tm+1),r,tm+1,tr));
   }
 
-  // Point updates
+  // Point update position pos to value val
   void update(int pos, int val) {
     roots.push_back(update(roots.back(),pos,val,L,R));
   }

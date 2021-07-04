@@ -5,6 +5,7 @@ using namespace std;
 
 using ll = long long;
 
+// Source: ACL
 // Takes as input list of residues and mods
 // If there is no solution, returns {0,0}
 // Otherwise, returns (y,z) such that all solutions are x = y mod z

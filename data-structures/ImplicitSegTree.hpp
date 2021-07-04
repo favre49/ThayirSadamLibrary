@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Source: cp-algorithms
+// Tested On: ???
+// Implicit Segtree, create using SegTreeNode(L,R) for a range [L,R)
 struct SegTreeNode {
   // Node values
   int sum = 0;

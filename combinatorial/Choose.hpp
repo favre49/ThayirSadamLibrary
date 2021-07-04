@@ -3,6 +3,9 @@ using namespace std;
 
 #include "../number-theory/ModInt.hpp"
 
+// Source: Adapted from neal
+// Tested On: Many problems
+// Finds C(n,k) for all n,k <= N in O(N)
 vector<mod_int> fact, invfact, inv;
 
 void prepare_factorials(int N) {

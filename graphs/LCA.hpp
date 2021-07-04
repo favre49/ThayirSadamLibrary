@@ -67,7 +67,7 @@ struct LCA {
   }
 
   // Smallest Tree that contains all of the given nodes
-  // Untested
+  // Untested, O(KlogK)
   vector<pii> compress_tree(vector<int> nodes) {
     if(nodes.empty()) return {};
     auto &&compare_tour = [&](int a, int b) {return tour_start[a] < tour_start[b]; };
