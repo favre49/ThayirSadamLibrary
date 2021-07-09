@@ -25,7 +25,7 @@ struct DSU {
 
   int size(int v) {
     return nodes[find(v)].s;
-  }A binary string is a sequence of 0's and 1's. We define the imbalance of a binary string to be the absolute difference between the number of 0's in the string and the number of 1's in the string. For instance, the imbalance of "0011011" is 1 and the imbalance of "101000" is 2.
+  }
 
   int find(int v) {
     if (nodes[v].p==v)
