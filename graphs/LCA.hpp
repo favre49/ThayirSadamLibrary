@@ -66,8 +66,8 @@ struct LCA {
     return (is_ancestor(x,a)||is_ancestor(x,b)) && is_ancestor(lca(a,b),x);
   }
 
-  // Smallest Tree that contains all of the given nodes
-  // Untested, O(KlogK)
+  // Given K nodes, find the minimal tree that contains all the nodes.
+  // Works in O(KlogK)
   vector<pii> compress_tree(vector<int> nodes) {
     if(nodes.empty()) return {};
     auto &&compare_tour = [&](int a, int b) {return tour_start[a] < tour_start[b]; };
