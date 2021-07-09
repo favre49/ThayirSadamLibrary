@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Source: ecnerwala
+// Implemented of pairs with operation overloading
+// It can be used for hashing
 template <typename U, typename V> struct pairnum {
   U u;
   V v;

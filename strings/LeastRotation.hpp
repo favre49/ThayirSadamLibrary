@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Source: ???
+// Tested on: 
 // Find the lexicographically minimal rotation in O(n)
 // rotate(v.begin(),v.begin()+val,v.end());
 // type needs to implement a < compare

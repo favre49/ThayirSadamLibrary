@@ -4,6 +4,11 @@ using namespace std;
 const int N = 128;
 typedef bitset<N> bs;
 
+// Source: KACTL
+// Tested on: 
+// Solves Ax = b over F_2. If multiple solutions exist, arbitrary one is
+// returned. Returns the rank, or -1 if no solutions exist.
+// A and b will be destroyed.
 int solveLinear(vector<bs>& A, vector<int>& b, bs& x, int m) {
   int n = A.size(), rank = 0, br;
   assert(m <= x.size());

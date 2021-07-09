@@ -1,6 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Source: cp-algorithms
+// Tested on: 
+// z[i] is the length of LCP between s and it's suffix starting at i
+// O(n)
 vector<int> z_function(string s) {
   int n = (int) s.length();
   vector<int> z(n);

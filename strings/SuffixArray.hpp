@@ -1,9 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Source: KACTL
+// Tested on: 
 // O(Nlog2n)
 // sa is the suffix array, including the empty suffix (which is always first
 // element)
+// TODO: Switch to linear time version
 struct SuffixArray {
   vector<int> sa, lcp;
   SuffixArray(string& s, int lim=256) { // or basic_string<int>

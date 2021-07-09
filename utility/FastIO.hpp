@@ -1,6 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Source: neal
+// Call IO::init() before running
+// IO::read_int(x,y,z,...)
+// IO::writeint(x,'\n') [End with newline]
 namespace IO {
   const int BUFFER_SIZE = 1 << 15;
 

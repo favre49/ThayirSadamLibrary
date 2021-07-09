@@ -1,6 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Source: ecnerwala
+// Simple-to-use multidimensional arrays
+// tensor<int,3> dp({n,n,n},INF) [Example constructor]
+// use a[{i,j,k,...}] to access
 template <typename T, int NDIMS> struct tensor_view {
   static_assert(NDIMS >= 0, "NDIMS must be nonnegative");
 

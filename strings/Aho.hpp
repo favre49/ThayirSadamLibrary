@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Source: neal
+// Tested on: 
 // Works in O(mk) time, where m is total string size and k is the size of the alphabet
 // Given a set of pattern strings P and a text T, can find all matches of P in T
 // To use AC automaton, the following steps for a given character:

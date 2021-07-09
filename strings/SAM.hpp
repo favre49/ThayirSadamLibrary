@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Source: Me(?)
+// Tested on:
+// Root is state 0, -1 if there is no transition on a character
 template<char START = 'a', int ALPHABET=26>
 struct SuffixAutomaton {
   struct State {
