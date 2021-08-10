@@ -52,7 +52,11 @@ for i in {1..100}
 do 
   echo -e "${NC}${BOLD}Test $i:${NORM}"
   ./test_gen > tin 
+  start_time=`date +%s%N`
   ./test_solution < tin > tout_solution
+  end_time=`date +%s%N`
+  runtime=$(($end_time-$start_time))
+  runtime=$(($runtime/1000000))
   if [[ $? -ge 128 ]]; then
     echo -e "${RED}Runtime Error"
     exit 2
@@ -67,9 +71,11 @@ do
       exit 2
     fi
   fi
-  echo -e "${GREEN}Passed Test"
+  echo -e "${GREEN}OK! Passed Tests in $runtime ms"
 done
-rm tin temp_in tout_checker tout_solution test_solution test_gen test_checker
+rm tin tout_solution test_solution test_gen
+if [[ ! -z "$3" ]]; then
+  rm temp_in tout_checker test_checker
+fi
 echo -e "${GREEN}All tests done!"
-
 
