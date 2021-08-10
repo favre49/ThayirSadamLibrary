@@ -2,34 +2,31 @@
 using namespace std;
 
 // Source: Nisiyama_Suzune
-// Tested on: ???
-// Calculate the value of first n values of multiplicative function in O(n)
-const int N = 1e6+7;
-vector<int> prime;
-bool is_composite[N];
-int f[N], cnt[N];
-
-void linear_sieve(int n) {
+// Calculate f(x) for [1,N] where f is a multiplicative function
+// Calculates f(p^k) = k
+vector<int> linear_sieve(int N) {
+  vector<int> f(N+1), cnt(N+1), prime;
+  vector<bool> is_composite(N+1);
   f[1] = 1;
-  for (int i = 2; i < n; i++) {
+  for (int i = 2; i <= N; i++) {
     if (!is_composite[i]) { // Prime number, seed f(p)
       prime.push_back(i);
-      f[i] = 1; // TODO: Seed initial value for prime
+      f[i] = 1; // TODO: seed f(p)
       cnt[i] = 1;
     }
-    for (int j = 0; j < prime.size() && i*prime[j] < n; j++) {
+    for (int j = 0; j < prime.size() && i*prime[j] <= N; j++) {
       is_composite[i*prime[j]] = true;
-      if (i%prime[j]==0)  { // p and i are not coprime
-        cnt[i*prime[j]] = cnt[i]+1;
-        // f(ip) = f(i / p^cnt[i]) * f(p^(cnt[i]+1))
-        // f(ip) = f(i) / f(p^cnt[i]) * f(p^(cnt[i]+1)) [As long as f(p^cnt[i]) != 0
+      if (i%prime[j] == 0) { // p and i are not coprime
+        // f(ip) = f(i/p^cnt[i]) * f(p^(cnt[i]+1))
+        // f(ip) = f(i)/f(p^cnt[i]) * f(p^(cnt[i]+1)) [Denom shouldn't be 0]
         f[i*prime[j]] = f[i]/cnt[i] * (cnt[i]+1);
         break;
       }
-      else { // p and i are corpime, f[ip] = f[i] * f[p]
+      else { // p and i are coprime, f[ip] = f[i]*f[p]
         f[i*prime[j]] = f[i]*f[prime[j]];
         cnt[i*prime[j]] = 1;
       }
     }
   }
+  return f;
 }
