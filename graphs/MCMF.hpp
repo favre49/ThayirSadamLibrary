@@ -5,6 +5,7 @@ using namespace std;
 // Source : ecnerwala
 // SSPA algorithm for min cost max flow
 // Does not handle negative costs
+// Get (Max flow, Min Cost) with maxflow(s,t)
 // Complexity : O(n^3m)
 template <typename flow_t = int, typename cost_t = long long>
 struct MCMF {

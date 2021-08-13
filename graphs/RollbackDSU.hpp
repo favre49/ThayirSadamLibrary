@@ -3,6 +3,8 @@ using namespace std;
 
 // Source: Me
 // Tested On: CF-1039-C
+// Works in O(logn)
+// Use the rollback() function to rollback DSU operations
 struct RollbackDSU {
   struct node {
     int p;

@@ -5,7 +5,7 @@ using ll = long long;
 
 // Source: KACTL
 // Tested on: Yosupo Line Add Get Min
-// Add lines of the form kx+m and query the maximum at x
+// Add lines of the form kx+m and query the MAXIMUM at x
 bool Q;
 struct Line {
   mutable ll k, m, p;
@@ -25,6 +25,7 @@ struct LineContainer : multiset<Line> {
     else x->p = div(y->m - x->m, x->k - y->k);
     return x->p >= y->p;
   }
+  // Add line kx+m
   void add(ll k, ll m) {
     auto z = insert({k, m, 0}), y = z++, x = y;
     while (isect(y, z)) z = erase(z);
@@ -32,6 +33,7 @@ struct LineContainer : multiset<Line> {
     while ((y = x) != begin() && (--x)->p >= y->p)
       isect(x, erase(y));
   }
+  // Query maximum at x
   ll query(ll x) {
     assert(!empty());
     Q = 1; auto l = *lower_bound({0,0,x}); Q = 0;

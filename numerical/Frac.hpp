@@ -5,7 +5,7 @@ using namespace std;
 using ll = long long;
 
 // Source: bqi343
-// Untested
+// Fraction library
 struct frac {
 	ll n,d;
 	frac(ll _n, ll _d) {

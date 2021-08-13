@@ -6,8 +6,10 @@ using namespace std;
 // Source: Adapted from neal
 // Tested On: Many problems
 // Finds C(n,k) for all n,k <= N in O(N)
+// Remember to call prepare_factorials(N) before using choose.
 vector<mod_int> fact, invfact, inv;
 
+// Precalculates data for C(n,k), n <= N
 void prepare_factorials(int N) {
   assert(N >= 2);
   fact.resize(N+1);

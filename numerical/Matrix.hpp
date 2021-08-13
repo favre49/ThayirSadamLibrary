@@ -3,6 +3,8 @@ using namespace std;
 
 // Source: Me
 // Tested On:
+// Matrix library
+// Use M^k to raise to a power
 template<class T>
 struct Mat{
   int n,m;

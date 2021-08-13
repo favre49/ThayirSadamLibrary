@@ -14,6 +14,7 @@ struct Fenwick {
     t = vector<T>(tn+1);
   }
 
+  // Update a[x] by val
   void update(int x, T val) {
     x++;
     while (x <= tn) {

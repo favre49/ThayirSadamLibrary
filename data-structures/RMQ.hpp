@@ -3,6 +3,7 @@ using namespace std;
 
 // Source: neal
 // Tested on: ???
+// Queries minimum on range [l,r)
 template<typename T, bool maximum_mode = false>
 struct RMQ {
   int n = 0;

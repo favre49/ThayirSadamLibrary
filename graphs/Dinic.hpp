@@ -7,6 +7,7 @@ using ll = long long;
 // Tested On: Yosupo Matching on Bipartite Graph
 // Find the max flow through a directed graph
 // works in O(V^2E)
+// Run flow algorithm with the flow() function
 template<typename T = int>
 struct Dinic {
   // Edge u->v with capacity cap
@@ -24,6 +25,7 @@ struct Dinic {
   vector<int> level, ptr;
   queue<int> q;
 
+  // Graph with n vertices, source vertex s and sink vertex t
   Dinic(int n, int s, int t) : n(n), s(s), t(t) {
     adj.resize(n); level.resize(n); ptr.resize(n);
   }
