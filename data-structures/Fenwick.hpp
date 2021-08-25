@@ -43,7 +43,7 @@ struct Fenwick {
     return query(r)-query(l-1);
   }
 
-  // Returns the largest p in [0,tn] such that query(p) <= sum
+  // Returns the smallest p in [0,tn] such that query(p) > sum
   int find_last_prefix(T sum){
     if (sum < 0)
       return -1;
