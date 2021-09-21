@@ -4,16 +4,20 @@ using namespace std;
 using ll = long long;
 using ull  = unsigned long long;
 
-// Source: KACTL
-// Tested on:
+// Source: KACTL + ???
+// Tested on: 1027G
 // Primality and factorization for 64 bit integers, using Pollard Rho and
 // Miller Rabin
+// KACTL modmul has been switched with my own modmul (Testing)
 
-// Modulo operations when modulo is up to 1e18
-ull modmul(ull a, ull b, ull M) {
-  ll ret = a * b - M * ull(1.L / M * a * b);
-  return ret + M * (ret < 0) - M * (ret >= (ll)M);
+ull modmul(ull a, ull b, ull m) {
+  long double x; ull c; ll r;
+  if (a >= m) a %= m;
+  if (b >= m) b %= m;
+  x = a; c = x * b / m; r = (ll)(a * b - c * m) % (ll)m;
+  return r < 0 ? r + m : r;
 }
+
 ull modpow(ull b, ull e, ull mod) {
   ull ans = 1;
   for (; e; b = modmul(b, b, mod), e /= 2)
