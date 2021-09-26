@@ -1,9 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-using ll = long long;
-using pii = pair<int,int>;
-
 // Source : bqi343
 // Tested On: CF-102835-I
 // Find biconnected components
@@ -12,6 +9,7 @@ using pii = pair<int,int>;
 // components stores the edges in each BCC. If it is of size 1, that edge is
 // a bridge.
 struct BCC {
+  using pii = pair<int,int>;
   int n, timer;
   vector<vector<pii>> adj;
   vector<pii> edges;

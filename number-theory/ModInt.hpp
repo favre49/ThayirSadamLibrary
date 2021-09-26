@@ -8,19 +8,19 @@ template<const int &MOD>
 struct _m_int {
   int val;
 
-  _m_int(long long v = 0) {
+  _m_int(int64_t v = 0) {
     if (v < 0) v = v % MOD + MOD;
     if (v >= MOD) v %= MOD;
     val = int(v);
   }
 
-  _m_int(unsigned long long v) {
+  _m_int(uint64_t v) {
     if (v >= MOD) v %= MOD;
     val = int(v);
   }
 
-  _m_int(int v) : _m_int((long long)v) {}
-  _m_int(unsigned v) : _m_int((unsigned long long)v) {}
+  _m_int(int v) : _m_int((int64_t)v) {}
+  _m_int(unsigned v) : _m_int((uint64_t)v) {}
 
   static int inv_mod(int a, int m = MOD) {
     // https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm#Example

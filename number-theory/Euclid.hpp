@@ -1,14 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-using ll = long long;
-
 // Source: ACL
 // returns a pair (g,x) such that:
 // g = gcd(a,b)
 // xa = g mod b
 // 0 <= x < b/g;
-pair<ll,ll> inv_gcd(ll a, ll b) {
+pair<int64_t,int64_t> inv_gcd(int64_t a, int64_t b) {
+  using ll = int64_t;
   a = a%b;
   if (a < 0) a += b;
   if (a==0) return {b,0};

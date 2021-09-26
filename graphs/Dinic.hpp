@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-using ll = long long;
-
 // Source: me
 // Tested On: Yosupo Matching on Bipartite Graph
 // Find the max flow through a directed graph
@@ -14,7 +12,7 @@ struct Dinic {
   struct FlowEdge {
     int u,v;
     T cap, flow = 0;
-    FlowEdge(int u, int v, ll cap) : u(u),v(v),cap(cap) {}
+    FlowEdge(int u, int v, T cap) : u(u),v(v),cap(cap) {}
   };
 
   const T INF = numeric_limits<T>::max();

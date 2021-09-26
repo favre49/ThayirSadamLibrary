@@ -1,15 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-using ll = long long;
-using pii = pair<int,int>;
-
 // Source: Me
 // Tested on: ???
 // More general segtree. Remember to set identities
 struct SegTree {
   struct T { // Segtree data
-    ll sz = 0, sum = 0;
+    int64_t sz = 0, sum = 0;
     T() {} // identity
     T(int x) : sum(x) {}
     friend T operator+(const T& a, const T& b) { // Combine two data

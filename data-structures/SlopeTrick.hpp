@@ -1,14 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-using ll = long long;
-
 // Source: Nyaan, with changes
 // Tested on: ABC 217 H
 // Fast handling of convex piecewise linear functions
 // Add convex function, get min, sliding window min, etc.
 // If you want f(0) = 0, f(x) = INF (for x != 0), then just add 0 ~2*n times
 struct SlopeTrick {
+  using ll = int64_t;
   const ll INF = 1e16;
   ll mn;
   ll addL, addR;
@@ -46,7 +45,7 @@ struct SlopeTrick {
 
   // Add (x-a)_+ ____/ [max(x-a,0)]
   void add_xma(ll a) {
-    mn += max(0LL,getL()-a);
+    mn += max(ll(0),getL()-a);
     pushL(a);
     pushR(getL());
     popL();
@@ -54,7 +53,7 @@ struct SlopeTrick {
 
   // add (a-x)_+ \_____  [max(a-x,0)]
   void add_amx(ll a) {
-    mn += max(0LL,a-getR());
+    mn += max(ll(0),a-getR());
     pushR(a);
     pushL(getR());
     popR();
@@ -84,15 +83,13 @@ struct SlopeTrick {
   ll eval(ll x) {
     ll ret = mn;
     while(!L.empty()) {
-      ret += max(0LL,getL()-x);
+      ret += max(ll(0),getL()-x);
       popL();
     }
     while(!R.empty()) {
-      ret += max(0LL,getR()-x);
+      ret += max(ll(0),getR()-x);
       popR();
     }
     return ret;
   }
 };
-
-

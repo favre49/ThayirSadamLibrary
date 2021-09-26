@@ -1,13 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-using ll = long long;
-using pii = pair<int,int>;
-
 // Source : Me
 // Tested on : Yosupo Shortest Path
 // Use __gnu_pbds::priority_queue to get tiny speed increase
 struct Dijkstra {
+  using ll = int64_t;
   using dist_type = pair<ll,int>;
   int n;
   const ll INF = 1e18;

@@ -1,7 +1,5 @@
 #include <bits/stdc++.h>
-
 using namespace std;
-using ll = long long;
 
 // Source: bqi343+Me
 // Tested On:
@@ -24,22 +22,5 @@ struct Sieve {
         primes.push_back(i);
       cum.push_back(primes.size());
     }
-  }
-
-  // Factorize using sieved primes
-  vector<pair<ll,int>> factorize(ll x) {
-    vector<pair<ll,int>> ret;
-    for (auto& p : primes) {
-      if (1LL*p*p > x) continue;
-      if (x%p==0) {
-        ret.push_back({p,0});
-        while(x%p==0) {
-          ret.back().second++;
-          x /= p;
-        }
-      }
-    }
-    if (x >= 2) ret.push_back({x,1});
-    return ret;
   }
 };

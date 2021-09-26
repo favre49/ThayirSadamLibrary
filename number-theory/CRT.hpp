@@ -3,14 +3,13 @@ using namespace std;
 
 #include "Euclid.hpp"
 
-using ll = long long;
-
 // Source: ACL
 // Takes as input list of residues and mods
 // If there is no solution, returns {0,0}
 // Otherwise, returns (y,z) such that all solutions are x = y mod z
 // Complexity : O(n log(lcm))
-pair<ll,ll> crt(const vector<ll>& r, vector<ll>& m) {
+pair<int64_t,int64_t> crt(const vector<int64_t>& r, vector<int64_t>& m) {
+  using ll = int64_t;
   assert(r.size() == m.size());
   int n = (int)r.size();
   ll r0 = 0, m0 = 1;

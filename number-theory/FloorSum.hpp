@@ -1,13 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-using ll = long long;
-
 // Source: ACL
 // Tested on: ARC111 E
 // Find sum of floor((ai+b)/m), 0 <= i <= n-1
 // O(log(n+m+a+b))
-ll floor_sum(ll n, ll m, ll a, ll b) {
+int64_t floor_sum(int64_t n, int64_t m, int64_t a, int64_t b) {
+  using ll = int64_t;
   ll ans = 0;
   if (a >= m) {
     ans += (n - 1) * n * (a / m) / 2;

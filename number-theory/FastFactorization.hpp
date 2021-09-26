@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-using ll = long long;
-using ull  = unsigned long long;
+using ll = int64_t;
+using ull = uint64_t;
 
 // Source: KACTL + ???
 // Tested on: 1027G

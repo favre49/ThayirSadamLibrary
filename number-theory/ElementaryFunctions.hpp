@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-using ll = long long;
-
 // Source: Me
 // Elementary number theory functions, like:
 // 1. Prime factorization
@@ -10,9 +8,9 @@ using ll = long long;
 // 3. Mobius function
 // 4. Binary exponentiation 
 // 5. Primitive roots
-vector<pair<ll,int>> factorize(ll x) {
-  vector<pair<ll,int>> res;
-  for (ll i = 2; i*i <= x; i++) {
+vector<pair<int64_t,int>> factorize(int64_t x) {
+  vector<pair<int64_t,int>> res;
+  for (int64_t i = 2; i*i <= x; i++) {
     if (x%i==0) {
       int c = 0;
       while(x%i==0) {
@@ -44,7 +42,7 @@ vector<int> MobiusFunction(int N) {
 }
 
 // Evaluate mobius function
-int mu(ll x) {
+int mu(int64_t x) {
   if (x==1) return 1;
   auto pf = factorize(x);
   for (auto [p,c] : pf)
@@ -66,15 +64,15 @@ vector<int> TotientFunction(int N) {
 }
 
 // Evaluate totient function for given x
-ll phi(ll x) {
+int64_t phi(int64_t x) {
   auto pf = factorize(x);
-  ll ans = x;
+  int64_t ans = x;
   for (auto [p,_] : pf)
     ans = ans/p*(p-1);
   return ans;
 }
 
-ll modpow(ll a, ll n, ll mod) {
+int64_t modpow(int64_t a, int64_t n, int64_t mod) {
   a %= mod;
   long long ret = 1;
   while (n > 0) {
@@ -86,7 +84,7 @@ ll modpow(ll a, ll n, ll mod) {
 };
 
 // Check if r is a primitive root
-bool isPrimitiveRoot(ll r, ll mod) {
+bool isPrimitiveRoot(int64_t r, int64_t mod) {
   r %= mod;
   if (r==0) return false;
   auto pf = factorize(mod-1);
@@ -97,9 +95,9 @@ bool isPrimitiveRoot(ll r, ll mod) {
 }
 
 // Get the primitive root for given mod
-ll getPrimitiveRoot(ll mod) {
+int64_t getPrimitiveRoot(int64_t mod) {
   if (mod == 2) return 1;
-  ll ret = 1;
+  int64_t ret = 1;
   while(!isPrimitiveRoot(ret,mod)) ret++;
   return ret;
 }

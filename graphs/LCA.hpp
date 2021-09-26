@@ -1,8 +1,5 @@
 #include "bits/stdc++.h"
-
 using namespace std;
-using ll = long long;
-using pii = pair<int,int>;
 
 #include "../data-structures/RMQ.hpp"
 
@@ -68,7 +65,7 @@ struct LCA {
 
   // Given K nodes, find the minimal tree that contains all the nodes.
   // Works in O(KlogK)
-  vector<pii> compress_tree(vector<int> nodes) {
+  vector<pair<int,int>> compress_tree(vector<int> nodes) {
     if(nodes.empty()) return {};
     auto &&compare_tour = [&](int a, int b) {return tour_start[a] < tour_start[b]; };
     sort(nodes.begin(),nodes.end(),compare_tour);
@@ -78,7 +75,7 @@ struct LCA {
     sort(nodes.begin()+k,nodes.end(),compare_tour);
     inplace_merge(nodes.begin(),nodes.begin()+k,nodes.end(),compare_tour);
     nodes.erase(unique(nodes.begin(),nodes.end()),nodes.end());
-    vector<pii> res = {{nodes[0],-1}};
+    vector<pair<int,int>> res = {{nodes[0],-1}};
     for (int i = 1; i < nodes.size(); i++)
       res.push_back({nodes[i],lca(nodes[i],nodes[i-1])});
     return res;

@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-using ll = long long;
 #include "../data-structures/LazySegTree.hpp"
 
 // Source: bqi343
@@ -14,8 +13,8 @@ struct HLD {
   vector<int> parent, root, depth, sz, pos, rpos;
   int timer;
   bool usingEdge;
-  vector<ll> val;
-  LazySegTree<ll> T;
+  vector<int64_t> val;
+  LazySegTree<int64_t> T;
 
   HLD(int _n, bool _usingEdge = false) : n(_n), adj(n), parent(n), root(n),
   depth(n), sz(n), pos(n), usingEdge(_usingEdge), val(n),T(n) {}
@@ -53,9 +52,9 @@ struct HLD {
     size_dfs(r);
     root[r] = r;
     hld_dfs(r);
-    vector<ll> bld(n);
+    vector<int64_t> bld(n);
     for (int i = 0; i < n; i++) bld[pos[i]] = val[i];
-    T = LazySegTree<ll>(bld);
+    T = LazySegTree<int64_t>(bld);
   }
 
   // Get LCA in log time
@@ -79,20 +78,20 @@ struct HLD {
     }
 
   // Updates path from u to v
-  void update(int u, int v, ll val) {
+  void update(int u, int v, int64_t val) {
     process_path(u,v,[this,&val](int l, int r) {
         T.apply(l,r,val);
     });
   }
 
   // Updates subtree of u
-  void update(int u, ll val) {
+  void update(int u, int64_t val) {
     T.apply(pos[u] + usingEdge, pos[u] + sz[u] - 1, val);
   }
 
   // Query path between u and v
-  ll query(int u, int v) {
-    ll res = 0;
+  int64_t query(int u, int v) {
+    int64_t res = 0;
     process_path(u,v, [this, &res](int l, int r) {
         res += T.query(l,r);
     });

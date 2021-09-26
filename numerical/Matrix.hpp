@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-using ll = long long;
-
 // Source: Nyaan
 // Tested On:
 // Matrix library
@@ -58,12 +56,12 @@ struct Matrix{
     return *this;
   }
 
-  Matrix& operator^=(ll k) {
+  Matrix& operator^=(int64_t k) {
     Matrix B = Matrix::I((*this).H());
     while(k > 0) {
       if (k&1) B *= *this;
       *this *= *this;
-      k >>= 1LL;
+      k >>= 1;
     }
     A.swap(B.A);
     return *this;
@@ -72,7 +70,7 @@ struct Matrix{
   Matrix operator+(const Matrix& B) const { return (Matrix(*this) += B); }
   Matrix operator-(const Matrix& B) const { return (Matrix(*this) -= B); }
   Matrix operator*(const Matrix& B) const { return (Matrix(*this) *= B); }
-  Matrix operator^(const ll k) const { return (Matrix(*this) ^= k); }
+  Matrix operator^(const int64_t k) const { return (Matrix(*this) ^= k); }
 
   bool operator==(const Matrix& B) const {
     assert(H() == B.H() && W() == B.W());

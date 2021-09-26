@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-
 // Source: https://codeforces.com/blog/entry/57496
 // Tested On: ABC-187-F
 // Complexity: O(n 2^n)
@@ -22,9 +21,9 @@ int ChromaticNumber(const vector<int> &g) {
   }
   //compute the chromatic number (= \sum (-1)^{n - |i|} * ind(i)^k)
   for (int k = 1; k < n; k ++) {
-    long long sum = 0;
+    int64_t sum = 0;
     for (int i = 0; i < all; i ++) {
-      long long cur = ((s[i] * (long long) ind[i]) % modulo);
+      int64_t cur = ((s[i] * (int64_t) ind[i]) % modulo);
       s[i] = cur;
       sum += cur;
     }

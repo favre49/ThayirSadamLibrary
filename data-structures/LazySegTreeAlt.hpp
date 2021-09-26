@@ -1,15 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-using ll = long long;
-using pii = pair<int,int>;
-
 // Source: Me
 // Tested on: ???
 // More general segtree. Remember to set identities.
 struct LazySegTree {
   struct F { // Lazy update
-    ll inc = 0;
+    int64_t inc = 0;
     F() {} // identity
     F(int x) : inc(x) {}
     F& operator *= (const F& a) { // Compose a onto this (a is new)
@@ -18,7 +15,7 @@ struct LazySegTree {
     }
   };
   struct T { // Segtree data
-    ll sz = 1, sum = 0;
+    int64_t sz = 1, sum = 0;
     T() {} // identity
     T(int x) : sum(x) {}
     friend T operator+(const T& a, const T& b) { // Combine two data

@@ -1,12 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-using ll = long long;
-
 // Source: Me
 // Tested On: Range Chmin Chmax Add Range Sum
-const ll INF = 1e18;
+const int64_t INF = 1e18;
 struct SegTreeBeats {
+  using ll = int64_t;
   struct Beat {
     ll max, smax, max_c;
     ll min, smin, min_c;

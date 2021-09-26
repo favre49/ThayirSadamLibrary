@@ -1,12 +1,10 @@
 #include <bits/stdc++.h>
-
 using namespace std;
-
-using ll = long long;
 
 // Source: bqi343
 // Fraction library
 struct frac {
+  using ll = int64_t;
 	ll n,d;
 	frac(ll _n, ll _d) {
 		n = _n, d = _d;
