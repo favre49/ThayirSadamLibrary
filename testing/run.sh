@@ -1,6 +1,6 @@
 #! /bin/bash
 # Usage:
-# run.sh solution.cpp gen.cpp [checker.cpp]
+# run.sh 100 solution.cpp gen.cpp [checker.cpp]
 # 
 # How checker.cpp works:
 # First it takes test input, and then the solution output. If the solution output is ok,
@@ -26,29 +26,35 @@ NC='\033[0m'
 BOLD=$(tput bold)
 NORM=$(tput sgr0)
 
-if [[ $# -lt 2 ]]; then 
+if [[ $# -lt 3 ]]; then 
   echo "Pass at least 2 arguments"
   exit 2
 fi
 
-echo "${BOLD}Solution: ${NORM}$1"
-echo "${BOLD}Test Generator: ${NORM}$2"
-if [[ -z "$3" ]]; then
+if ! [[ "$1" =~ ^[0-9]+$ ]] ; then
+  echo "Pass an integer number of tests"
+  exit 2
+fi
+
+echo "${BOLD}Number of Tests: ${NORM}$1"
+echo "${BOLD}Solution: ${NORM}$2"
+echo "${BOLD}Test Generator: ${NORM}$3"
+if [[ -z "$4" ]]; then
   echo "${BOLD}No Checker given${NORM}"
 else
-  echo "${BOLD}Checker: ${NORM}$3"
+  echo "${BOLD}Checker: ${NORM}$4"
 fi
 
 # Optional, consider removing. Currenly only exists because Abhinav uses
 # -D ONLINE_JUDGE which wouldn't work well with piping
 echo "${BOLD}Compiling...${NORM}"
-g++ $1 -O2 -o test_solution
-g++ $2 -O2 -o test_gen
-if [[ ! -z "$3" ]]; then
-  g++ $3 -O2 -o test_checker
+g++ $2 -O2 -o test_solution
+g++ $3 -O2 -o test_gen
+if [[ ! -z "$4" ]]; then
+  g++ $4 -O2 -o test_checker
 fi
 
-for i in {1..100}
+for i in $( seq 1 $1 )
 do 
   echo -e "${NC}${BOLD}Test $i:${NORM}"
   ./test_gen > tin 
@@ -61,7 +67,7 @@ do
     echo -e "${RED}Runtime Error"
     exit 2
   fi
-  if [[ ! -z "$3" ]]; then
+  if [[ ! -z "$4" ]]; then
     # Checker given.
     cat tin > temp_in
     cat tout_solution >> temp_in
@@ -74,7 +80,7 @@ do
   echo -e "${GREEN}OK! Passed Tests in $runtime ms"
 done
 rm tin tout_solution test_solution test_gen
-if [[ ! -z "$3" ]]; then
+if [[ ! -z "$4" ]]; then
   rm temp_in tout_checker test_checker
 fi
 echo -e "${GREEN}All tests done!"
