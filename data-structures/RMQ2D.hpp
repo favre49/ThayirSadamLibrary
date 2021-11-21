@@ -40,7 +40,7 @@ struct RMQ2D {
 
   // Query for maximum in the submatrix with top left (r1,c1) and bottom right
   // (r2,c2)
-  int query(int r1, int c1, int r2, int c2) {
+  T query(int r1, int c1, int r2, int c2) {
     if (r2 < r1 || c2 < c1 || r1 < 0 || r2 >= n || c1 < 0 || c2 >= m) return -1e8;
     int a = logs[(r2-r1)+1];
     int b = logs[(c2-c1)+1];
