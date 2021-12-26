@@ -1,59 +1,56 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// Source: Me
-// Tested On: Yosupo Point Add Range Sum
-template <class T = int>
+// Source: Lain
+// Tested on: https://judge.yosupo.jp/problem/point_add_range_sum
+//
+// Implementation of a Fenwick Tree. `find_last_prefix` can be used to make
+// a order-statistics tree.
+template <typename T>
 struct Fenwick {
-  vector<T> t;
-  int tn;
-
-  Fenwick(int _n) {
-    assert(_n > 0);
-    tn = _n;
-    t = vector<T>(tn+1);
-  }
-
-  // Update a[x] by val
-  void update(int x, T val) {
-    x++;
-    while (x <= tn) {
-      t[x] += val;
-      x += (x&-x);
-    }
-  }
-
-  // Find sum in [0..x]
-  T query(int x) {
-    assert(x < tn);
-    x++;
-    T res = 0;
-    while (x > 0) {
-      res += t[x];
-      x -= (x&-x);
-    }
-    return res;
-  }
-
-  // Find sum in [l..r]
-  T query(int l, int r) {
-    assert(l <= r);
-    if (l==0)
-      return query(r);
-    return query(r)-query(l-1);
-  }
-
-  // Returns the smallest p in [0,tn] such that query(p) > sum
-  int find_last_prefix(T sum){
-    if (sum < 0)
-      return -1;
-    int pref = 0;
-    for (int k = 31 - __builtin_clz(tn); k >= 0; k--) {
-      if (pref + (1<<k) <= tn && t[pref+(1<<k)] <= sum){
-        pref += 1<<k;
-        sum -= t[pref];
+  public:
+    Fenwick() = default;
+    Fenwick(int n):n(n), tree(n+1,0) {}
+    Fenwick(const vector<T>& build) : Fenwick(build.size()) {
+      for (int i = 1; i <= n; i++) {
+        tree[i] = build[i-1];
+        for (int k = (i&-i)>>1; k > 0; k >>= 1)
+          tree[i] += tree[i-k];
       }
     }
-    return pref;
-  }
+
+    void add(int pos, const T& change) {
+      assert(pos < n);
+      for (int i = pos+1; i <= n; i += (i&-i))
+        tree[i] += change;
+    }
+
+    T query(int r) {
+      assert(r < n);
+      T ret = 0;
+      for (int i = r+1; i > 0; i -= (i&-i))
+        ret += tree[i];
+      return ret;
+    }
+
+    T query(int l, int r) {
+      return (l == 0)?query(r):query(r) - query(l-1);
+    }
+
+    // Returns the largest p in [0,tn] such that query(p) <= sum
+    int find_last_prefix(T sum) {
+      if (sum < 0) return -1;
+      int prefix = 0;
+      for (int k = 31 - __builtin_clz(n); k >= 0; k--) {
+        if (prefix + (1<<k) <= n && tree[prefix + (1<<k)] <= sum) {
+          prefix += 1<<k;
+          sum -= tree[prefix];
+        }
+      }
+      return prefix;
+    }
+
+  private:
+    size_t n;
+    vector<T> tree;
 };
