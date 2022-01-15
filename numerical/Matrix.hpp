@@ -219,8 +219,69 @@ struct Matrix {
       return prod;
     }
 
+    // Gauss-Jordan elimination
+
+    // Choose largest pivot in the case of R, any non-zero pivot in the case of Z_p
+    template<typename U, typename std::enable_if<std::is_floating_point<U>::value>::type * = nullptr>
+      static int choose_pivot(const Matrix<U>& B, int h, int curr) noexcept {
+        int n = B.N();
+        int piv = -1;
+        for (int j = h; j < n; j++) {
+          if (B[j][curr] && (piv < 0 || abs(B[j][curr]) > abs(B[piv][curr])))
+            piv = j;
+        }
+        return piv;
+      }
+
+    template<typename U, typename std::enable_if<!std::is_floating_point<U>::value>::type * = nullptr>
+      static int choose_pivot(const Matrix<U>& B, int h, int curr) noexcept {
+        int n = B.N();
+        for (int j = h; j < n; j++) {
+          if (B[j][curr] != 0) return j;
+        }
+        return -1;
+      }
+
+    Matrix gauss_jordan() const {
+      int n = N(), m = M();
+      int c = 0;
+      Matrix B(*this);
+      vector<int> ws;
+      ws.reserve(m);
+      for (int i = 0; i < n; i++) {
+        if (c == m) break;
+        int piv = choose_pivot(B,i,c);
+        if (piv == -1) {
+          c++;
+          i--;
+          continue;
+        }
+        if (i != piv) {
+          for (int j = 0; j < m; j++) {
+            swap(B[i][j],B[piv][j]);
+            B[piv][j] *= -1;
+          }
+        }
+        ws.clear();
+        for (int j = c; j < m; j++)
+          if (B[i][j] != 0)
+            ws.emplace_back(j);
+        const T hcinv = T(1)/B[i][c];
+        for (int k = 0; k < n; k++) {
+          if (i != k) {
+            const T coeff = B[k][c]*hcinv;
+            for (auto& w : ws) {
+              B[k][w] -= B[i][w]*coeff;
+              B[k][c] = 0;
+            }
+          }
+        }
+        c++;
+      }
+      return B;
+    }
+
   private:
     size_t n, m;
     vector<vector<T>> A;
 };
-

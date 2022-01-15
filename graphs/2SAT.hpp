@@ -20,10 +20,10 @@ struct TwoSat {
   TwoSat(int _n = 0): n(_n), adj(2*_n) {}
 
   int addVar() {
-		adj.emplace_back();
-		adj.emplace_back();
-		return n++;
-	}
+    adj.emplace_back();
+    adj.emplace_back();
+    return n++;
+  }
 
   void either(int f, int j) {
     f = max(2*f, -1-2*f);
@@ -33,18 +33,18 @@ struct TwoSat {
   }
   void setValue(int x) { either(x,x); }
 
-	void atMostOne(const vector<int>& li) {
-		if (li.size() <= 1) return;
-		int cur = ~li[0];
+  void atMostOne(const vector<int>& li) {
+    if (li.size() <= 1) return;
+    int cur = ~li[0];
     for (int i = 2; i < li.size(); i++) {
-			int next = addVar();
-			either(cur, ~li[i]);
-			either(cur, next);
-			either(~li[i], next);
-			cur = ~next;
-		}
-		either(cur, ~li[1]);
-	}
+      int next = addVar();
+      either(cur, ~li[i]);
+      either(cur, next);
+      either(~li[i], next);
+      cur = ~next;
+    }
+    either(cur, ~li[1]);
+  }
 
   int dfs(int i) {
     int low = val[i] = ++time, x;

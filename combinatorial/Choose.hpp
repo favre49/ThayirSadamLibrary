@@ -3,7 +3,7 @@ using namespace std;
 
 #include "../number-theory/ModInt.hpp"
 
-// Source: Adapted from neal
+// Source: neal
 // Tested On: Many problems
 // Finds C(n,k) for all n,k <= N in O(N)
 // Remember to call prepare_factorials(N) before using choose.
