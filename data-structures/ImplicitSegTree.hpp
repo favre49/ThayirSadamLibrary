@@ -1,54 +1,49 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// Source: cp-algorithms
-// Tested On: ???
-// Implicit Segtree, create using SegTreeNode(L,R) for a range [L,R)
+// Source: Lain
+// Tested on : Yosupo Point Add Range Sum
+// Implicit segment tree
+// Requires manual editing to use for different tasks
+// TODO: Make more modular to make editing easier
 struct SegTreeNode {
-  // Node values
-  int sum = 0;
+  int l, r;
+  SegTreeNode *left_child = nullptr, *right_child = nullptr;
 
-  int left, right; // Segment bounds
-  SegTreeNode *left_child = nullptr, *right_child = nullptr; // Children
+  // Segtree data
+  int64_t sum = 0;
 
-  // Segment for range [lb,rb)
-  SegTreeNode(int lb, int rb)
-  {
-    left = lb;
-    right = rb;
-  }
+  // Segment for range [lb,rb]
+  SegTreeNode(int lb, int rb):l(lb),r(rb) {}
 
-  void extend()
-  {
-    // Split the range into two equal subranges, if possible
-    if (!left_child && left+1 < right)
-    {
-      int t = (left+right)/2;
-      left_child = new SegTreeNode(left,t);
-      right_child = new SegTreeNode(t,right);
+  void extend() {
+    if (left_child == nullptr && l+1 <= r) {
+      int M = (l+r)/2;
+      left_child = new SegTreeNode(l,M);
+      right_child = new SegTreeNode(M+1,r);
     }
   }
 
-  void update(int pos, int val)
-  {
+  void update(int pos, int val) {
     extend();
-    sum += val;
-    if (left_child)
-    {
-      if (pos < left_child->right)
+    if (left_child) { 
+      if (pos <= left_child->r)
         left_child->update(pos,val);
       else
         right_child->update(pos,val);
+      sum = left_child->sum + right_child->sum; // Combine results
     }
+    else // leaf node
+      sum += val;
   }
 
-  int query(int lq, int rq)
-  {
-    if (lq <= left && right <= rq)
+  int64_t query(int ql, int qr) {
+    if (ql <= l && r <= qr)
       return sum;
-    if (max(left,lq) >= min(right,rq))
+    if (max(l,ql) > min(r,qr)) // no intersection, segtree identity
       return 0;
     extend();
-    return left_child->query(lq,rq) + right_child->query(lq,rq);
+    return left_child->query(ql,qr) + right_child->query(ql,qr);
   }
 };
+
