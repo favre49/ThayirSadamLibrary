@@ -7,7 +7,7 @@ using namespace std;
 // 1. Insert line kx+m
 // 2. Query maximum value at x
 // TODO: Implementation using doubles via template enable_ifs
-namespace cht_internal {
+namespace internal_cht {
   struct Line {
     mutable int64_t k,m,p;
     
@@ -21,7 +21,7 @@ namespace cht_internal {
   };
 };
 
-struct CHT : multiset<cht_internal::Line,less<>> {
+struct CHT : multiset<internal_cht::Line,less<>> {
   public:
     // Add line kx+m
     void add(int64_t k, int64_t m) {
