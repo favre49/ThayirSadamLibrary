@@ -1,7 +1,8 @@
 #include <bits/extc++.h>
 using namespace std;
 
-// Templates for using PBDS structures
+// Source: ecnerwala
+// Templates for Policy Based Data Structures
 struct splitmix64_hash {
   static uint64_t splitmix64(uint64_t x) {
     // http://xorshift.di.unimi.it/splitmix64.c
