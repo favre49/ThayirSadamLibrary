@@ -8,7 +8,7 @@ template<class T>
 struct SegTree {
   int n;
   vector<T> t;
-  T E = 0; // Identity element
+  T E = 0;
 
   T comb(T a, T b) { // Segtree function
     return a+b;
@@ -50,5 +50,65 @@ struct SegTree {
     if (p <= tm) update(p,val,2*node,tl,tm);
     else update(p,val,2*node+1,tm+1,tr);
     pull(node);
+  }
+
+  // first index such that f(index) is true (UNTESTED)
+  int search_first(int l, int r, const function<bool(T)>& f) {
+    return search_first(l,r,f,1,0,n-1);
+  }
+  int search_first_knowingly(const function<bool(T)>& f, int node, int tl, int tr) {
+    if (tl == tr)
+      return tl;
+    int tm = (tl+tr)/2;
+    int res;
+    if (f(t[2*node]))
+      res = search_first_knowingly(f,2*node,tl,tm);
+    else
+      res = search_first_knowingly(f,2*node+1,tm+1,tr);
+    return res;
+  }
+  int search_first(int l, int r, const function<bool(T)>& f, int node, int tl, int tr) {
+    if (l <= tl && tr <= r) {
+      if (!f(t[node]))
+        return -1;
+      return search_first_knowingly(f, node, tl, tr);
+    }
+    int tm = (tl+tr)/2;
+    int res = -1;
+    if (l <= tm)
+      res = search_first(l,r,f,2*node,tl,tm);
+    if (r > tm && res == -1)
+      res = search_first(l,r,f,2*node+1,tm+1,tr);
+    return res;
+  }
+
+  // last index such that f(index) is true (UNTESTED)
+  int search_last(int l, int r, const function<bool(T)>& f) {
+    return search_last(l,r,f,1,0,n-1);
+  }
+  int search_last_knowingly(const function<bool(T)>& f, int node, int tl, int tr) {
+    if (tl == tr)
+      return tl;
+    int tm = (tl+tr)/2;
+    int res;
+    if (f(t[2*node+1]))
+      res = search_last_knowingly(f,2*node+1,tm+1,tr);
+    else
+      res = search_last_knowingly(f,2*node,tl,tm);
+    return res;
+  }
+  int search_last(int l, int r, const function<bool(T)>& f, int node, int tl, int tr) {
+    if (l <= tl && tr <= r) {
+      if (!f(t[node]))
+        return -1;
+      return search_last_knowingly(f, node, tl, tr);
+    }
+    int tm = (tl+tr)/2;
+    int res = -1;
+    if (r > tm)
+      res = search_last(l,r,f,2*node+1,tm+1,tr);
+    if (l <= tm && res == -1)
+      res = search_last(l,r,f,2*node,tl,tm);
+    return res;
   }
 };
