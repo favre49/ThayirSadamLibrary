@@ -40,7 +40,7 @@ struct LCA {
     vector<int> euler_depths;
     for (int v : euler)
       euler_depths.push_back(depth[v]);
-    rmq.build(euler_depths);
+    rmq = RMQ<int>(euler_depths);
   }
 
   // Find the lca of u and v

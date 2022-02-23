@@ -33,7 +33,7 @@ struct SuffixArray {
         }
         lcp[rank[i] - 1] = h;
       }
-      rmq.build(lcp); // can remove to make truly linear
+      rmq = RMQ<int>(lcp); // Can remove for true linear time
     }
 
     // get LCP of suffixes [a...n) and [b...n)

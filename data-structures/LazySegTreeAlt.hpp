@@ -2,7 +2,7 @@
 using namespace std;
 
 // Source: Me
-// Tested on: ???
+// Tested on: CF 1641 C
 // More general segtree. Remember to set identities.
 struct LazySegTree {
   struct F { // Lazy update
@@ -42,7 +42,7 @@ struct LazySegTree {
     for (int i = 0; i < v.size(); i++) t[n+i] = v[i];
     for (int i = n-1; i >= 1; i--) pull(i);
   }
-  
+
   void push(int node) {
     t[node] *= lz[node];
     if (node < n) {
@@ -79,5 +79,73 @@ struct LazySegTree {
     apply(l,r,val,2*node,tl,tm);
     apply(l,r,val,2*node+1,tm+1,tr);
     pull(node);
+  }
+
+  // first index such that f(index) is true
+  int search_first(int l, int r, const function<bool(const T&)>& f) {
+    return search_first(l,r,f,1,0,n-1);
+  }
+  int search_first_knowingly(const function<bool(const T&)>& f, int node, int tl, int tr) {
+    push(node);
+    if (tl == tr)
+      return tl;
+    int tm = (tl+tr)/2;
+    int res;
+    if (f(t[2*node]))
+      res = search_first_knowingly(f,2*node,tl,tm);
+    else
+      res = search_first_knowingly(f,2*node+1,tm+1,tr);
+    pull(node);
+    return res;
+  }
+  int search_first(int l, int r, const function<bool(const T&)>& f, int node, int tl, int tr) {
+    push(node);
+    if (l <= tl && tr <= r) {
+      if (!f(t[node]))
+        return -1;
+      return search_first_knowingly(f, node, tl, tr);
+    }
+    int tm = (tl+tr)/2;
+    int res = -1;
+    if (l <= tm)
+      res = search_first(l,r,f,2*node,tl,tm);
+    if (r > tm && res == -1)
+      res = search_first(l,r,f,2*node+1,tm+1,tr);
+    pull(node);
+    return res;
+  }
+
+  // last index such that f(index) is true
+  int search_last(int l, int r, const function<bool(const T&)>& f) {
+    return search_last(l,r,f,1,0,n-1);
+  }
+  int search_last_knowingly(const function<bool(const T&)>& f, int node, int tl, int tr) {
+    push(node);
+    if (tl == tr)
+      return tl;
+    int tm = (tl+tr)/2;
+    int res;
+    if (f(t[2*node+1]))
+      res = search_last_knowingly(f,2*node+1,tm+1,tr);
+    else
+      res = search_last_knowingly(f,2*node,tl,tm);
+    pull(node);
+    return res;
+  }
+  int search_last(int l, int r, const function<bool(const T&)>& f, int node, int tl, int tr) {
+    push(node);
+    if (l <= tl && tr <= r) {
+      if (!f(t[node]))
+        return -1;
+      return search_last_knowingly(f, node, tl, tr);
+    }
+    int tm = (tl+tr)/2;
+    int res = -1;
+    if (r > tm)
+      res = search_last(l,r,f,2*node+1,tm+1,tr);
+    if (l <= tm && res == -1) 
+      res = search_last(l,r,f,2*node,tl,tm);
+    pull(node);
+    return res;
   }
 };

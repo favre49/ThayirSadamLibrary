@@ -1,12 +1,11 @@
-#include <vector>
-using namespace std;
-
+#include "bits/stdc++.h"
 #include "../number-theory/ModInt.hpp"
+using namespace std;
 
 // Source: Based on neal's choose implementation
 // Tested on: ABC 235 G
 namespace internal_choose {
-  vector<mod_int> factorial = {1}, inv_factorial = {1};
+  std::vector<mod_int> factorial = {1}, inv_factorial = {1};
   int built_max = 0;
 
   void prepare_factorials(int max) {
