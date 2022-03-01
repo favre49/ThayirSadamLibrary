@@ -42,7 +42,7 @@ struct SuffixArray {
       assert(a < n && b < n);
       if (a==b) return n-a;
       if (rank[a] > rank[b]) swap(a,b);
-      return rmq.query_value(rank[a],rank[b]);
+      return rmq.query_value(rank[a],rank[b]-1);
     }
 
   private:
