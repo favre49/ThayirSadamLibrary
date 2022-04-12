@@ -23,6 +23,7 @@ struct RollbackDSU {
   int find(int v) {
     return (nodes[v].p != v?find(nodes[v].p):v);
   }
+
   bool merge(int a, int b){
     int fe = a, se = b;
     a = find(a), b = find(b);
@@ -37,15 +38,17 @@ struct RollbackDSU {
     return false;
   }
 
-  // rollback to "time" k
+  // Rollback to time moment k
   void rollback(int k) {
-    while(q.size() > k) {
+    while(q.size() > 2*k) {
+      nodes[q.back().first] = q.back().second;
+      q.pop_back();
       nodes[q.back().first] = q.back().second;
       q.pop_back();
     }
   }
 
   int time() {
-    return q.size();
+    return q.size()/2;
   }
 };
