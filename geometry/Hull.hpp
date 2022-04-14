@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
+#include "Line.hpp"
 using namespace std;
 
-#include "Line.hpp"
 
 template<class P>
 int sideOf(P s, P e, P p) { return sgn(s.cross(e, p)); }

@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
+#include "../data-structures/LazySegTree.hpp"
 using namespace std;
 
-#include "../data-structures/LazySegTree.hpp"
 
 // Source: bqi343
 // Tested On: Yosupo Vertex Add Path Sum

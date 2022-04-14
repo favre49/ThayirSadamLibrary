@@ -1,5 +1,4 @@
 #include <bits/extc++.h>
-
 using namespace std;
 
 // Source : ecnerwala

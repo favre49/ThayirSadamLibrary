@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
+#include "../data-structures/RMQ.hpp"
 using namespace std;
 
-#include "../data-structures/RMQ.hpp"
 
 // Source: ACL+me
 // Tested on: 1129 C

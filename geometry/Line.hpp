@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
+#include "Point.hpp"
 using namespace std;
 
-#include "Point.hpp"
 
 template<class T>
 struct TLine {

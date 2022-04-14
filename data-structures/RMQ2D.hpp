@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
-using namespace std;
-
 #include "../utility/Tensor.hpp"
+using namespace std;
 
 // Source: Me
 // Tested on: CF 1301 E

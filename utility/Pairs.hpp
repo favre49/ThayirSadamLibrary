@@ -3,8 +3,9 @@ using namespace std;
 
 // Source: ecnerwala
 // Implemented of pairs with operation overloading
-// It can be used for hashing
-template <typename U, typename V> struct pairnum {
+// It can be used for hashing or linear combinations in two variables
+template <typename U, typename V> 
+struct pairnum {
   U u;
   V v;
 

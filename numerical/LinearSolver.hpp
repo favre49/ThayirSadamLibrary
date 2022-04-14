@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
+#include "Matrix.hpp"
 using namespace std;
 
-#include "Matrix.hpp"
 
 // Source: hitonanode
 // Tested on: https://judge.yosupo.jp/problem/system_of_linear_equations

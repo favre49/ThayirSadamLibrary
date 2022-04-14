@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
-
 #include "Line.hpp"
+using namespace std;
+
 
 template<class T>
 struct TPolygon {

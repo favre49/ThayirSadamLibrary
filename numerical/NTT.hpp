@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
+#include "../number-theory/ModInt.hpp"
 using namespace std;
 
-#include "../number-theory/mod_int.hpp"
 
 // Source: neal
 // Tested On:

@@ -1,7 +1,7 @@
 #include "bits/stdc++.h"
+#include "../data-structures/RMQ.hpp"
 using namespace std;
 
-#include "../data-structures/RMQ.hpp"
 
 // Source: Me
 // Tested On: Yosupo Lowest Common Ancestor

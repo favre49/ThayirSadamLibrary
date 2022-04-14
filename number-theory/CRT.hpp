@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
+#include "Euclid.hpp"
 using namespace std;
 
-#include "Euclid.hpp"
 
 // Source: ACL
 // Takes as input list of residues and mods
