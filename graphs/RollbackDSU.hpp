@@ -11,7 +11,7 @@ struct RollbackDSU {
     int s;
   };
   vector<node> nodes;
-  vector<pair<int,node>> q;
+  vector<pair<int, node>> q;
 
   RollbackDSU(int n) {
     nodes.resize(n);
@@ -20,17 +20,15 @@ struct RollbackDSU {
     }
   }
 
-  int find(int v) {
-    return (nodes[v].p != v?find(nodes[v].p):v);
-  }
+  int find(int v) { return (nodes[v].p != v ? find(nodes[v].p) : v); }
 
-  bool merge(int a, int b){
+  bool merge(int a, int b) {
     int fe = a, se = b;
     a = find(a), b = find(b);
-    q.push_back({a,nodes[a]});
-    q.push_back({b,nodes[b]});
+    q.push_back({a, nodes[a]});
+    q.push_back({b, nodes[b]});
     if (a != b) {
-      if (nodes[a].s < nodes[b].s) swap(a,b);
+      if (nodes[a].s < nodes[b].s) swap(a, b);
       nodes[b].p = a;
       nodes[a].s += nodes[b].s;
       return true;
@@ -40,7 +38,7 @@ struct RollbackDSU {
 
   // Rollback to time moment k
   void rollback(int k) {
-    while(q.size() > 2*k) {
+    while (q.size() > 2 * k) {
       nodes[q.back().first] = q.back().second;
       q.pop_back();
       nodes[q.back().first] = q.back().second;
@@ -48,7 +46,5 @@ struct RollbackDSU {
     }
   }
 
-  int time() {
-    return q.size()/2;
-  }
+  int time() { return q.size() / 2; }
 };

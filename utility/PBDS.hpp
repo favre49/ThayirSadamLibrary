@@ -13,7 +13,8 @@ struct splitmix64_hash {
   }
 
   size_t operator()(uint64_t x) const {
-    static const uint64_t FIXED_RANDOM = std::chrono::steady_clock::now().time_since_epoch().count();
+    static const uint64_t FIXED_RANDOM =
+        std::chrono::steady_clock::now().time_since_epoch().count();
     return splitmix64(x + FIXED_RANDOM);
   }
 };
@@ -25,6 +26,6 @@ using hash_map = gp_hash_table<K, V, Hash>;
 template <typename K, typename Hash = splitmix64_hash>
 using hash_set = hash_map<K, null_type, Hash>;
 
-template<class T, class Compare = less<>>
-using ordered_set = tree<T,null_type,Compare,rb_tree_tag,tree_order_statistics_node_update>;
-
+template <class T, class Compare = less<>>
+using ordered_set =
+    tree<T, null_type, Compare, rb_tree_tag, tree_order_statistics_node_update>;

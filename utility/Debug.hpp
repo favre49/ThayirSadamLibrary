@@ -13,17 +13,11 @@ string to_string(tuple<A, B, C> p);
 template <typename A, typename B, typename C, typename D>
 string to_string(tuple<A, B, C, D> p);
 
-string to_string(const string& s) {
-  return '"' + s + '"';
-}
+string to_string(const string& s) { return '"' + s + '"'; }
 
-string to_string(const char* s) {
-  return to_string((string) s);
-}
+string to_string(const char* s) { return to_string((string)s); }
 
-string to_string(bool b) {
-  return (b ? "true" : "false");
-}
+string to_string(bool b) { return (b ? "true" : "false"); }
 
 string to_string(vector<bool> v) {
   bool first = true;
@@ -52,7 +46,7 @@ template <typename A>
 string to_string(A v) {
   bool first = true;
   string res = "{";
-  for (const auto &x : v) {
+  for (const auto& x : v) {
     if (!first) {
       res += ", ";
     }
@@ -70,12 +64,14 @@ string to_string(pair<A, B> p) {
 
 template <typename A, typename B, typename C>
 string to_string(tuple<A, B, C> p) {
-  return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " + to_string(get<2>(p)) + ")";
+  return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " +
+         to_string(get<2>(p)) + ")";
 }
 
 template <typename A, typename B, typename C, typename D>
 string to_string(tuple<A, B, C, D> p) {
-  return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " + to_string(get<2>(p)) + ", " + to_string(get<3>(p)) + ")";
+  return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " +
+         to_string(get<2>(p)) + ", " + to_string(get<3>(p)) + ")";
 }
 
 void debug_out() { cerr << endl; }

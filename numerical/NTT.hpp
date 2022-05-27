@@ -1,11 +1,11 @@
 #include <bits/stdc++.h>
+
 #include "../number-theory/ModInt.hpp"
 using namespace std;
 
-
 // Source: neal
 // Tested On:
-template<const int &MOD>
+template <const int &MOD>
 struct NTT {
   using ntt_int = _m_int<MOD>;
 
@@ -19,13 +19,10 @@ struct NTT {
     max_size = -1;
   }
 
-  static bool is_power_of_two(int n) {
-    return (n & (n - 1)) == 0;
-  }
+  static bool is_power_of_two(int n) { return (n & (n - 1)) == 0; }
 
   static int round_up_power_two(int n) {
-    while (n & (n - 1))
-      n = (n | (n - 1)) + 1;
+    while (n & (n - 1)) n = (n | (n - 1)) + 1;
 
     return max(n, 1);
   }
@@ -36,8 +33,9 @@ struct NTT {
     return __builtin_ctz(n);
   }
 
-  // Rearranges the indices to be sorted by lowest bit first, then second lowest, etc., rather than highest bit first.
-  // This makes even-odd div-conquer much easier.
+  // Rearranges the indices to be sorted by lowest bit first, then second
+  // lowest, etc., rather than highest bit first. This makes even-odd
+  // div-conquer much easier.
   void bit_reorder(int n, vector<ntt_int> &values) {
     if (int(bit_reverse.size()) != n) {
       bit_reverse.assign(n, 0);
@@ -48,8 +46,7 @@ struct NTT {
     }
 
     for (int i = 0; i < n; i++)
-      if (i < bit_reverse[i])
-        swap(values[i], values[bit_reverse[i]]);
+      if (i < bit_reverse[i]) swap(values[i], values[bit_reverse[i]]);
   }
 
   void find_root() {
@@ -57,24 +54,22 @@ struct NTT {
     root = 2;
 
     // Find a max_size-th primitive root of MOD.
-    while (!(root.pow(max_size) == 1 && root.pow(max_size / 2) != 1))
-      root++;
+    while (!(root.pow(max_size) == 1 && root.pow(max_size / 2) != 1)) root++;
   }
 
   void prepare_roots(int n) {
-    if (max_size < 0)
-      find_root();
+    if (max_size < 0) find_root();
 
     assert(n <= max_size);
 
-    if (int(roots.size()) >= n)
-      return;
+    if (int(roots.size()) >= n) return;
 
     int length = get_length(int(roots.size()));
     roots.resize(n);
 
-    // The roots array is set up such that for a given power of two n >= 2, roots[n / 2] through roots[n - 1] are
-    // the first half of the n-th primitive roots of MOD.
+    // The roots array is set up such that for a given power of two n >= 2,
+    // roots[n / 2] through roots[n - 1] are the first half of the n-th
+    // primitive roots of MOD.
     while (1 << length < n) {
       // z is a 2^(length + 1)-th primitive root of MOD.
       ntt_int z = root.pow(max_size >> (length + 1));
@@ -106,8 +101,7 @@ struct NTT {
   void invert_fft(int n, vector<ntt_int> &values) {
     ntt_int inv_n = ntt_int(n).inv();
 
-    for (int i = 0; i < n; i++)
-      values[i] *= inv_n;
+    for (int i = 0; i < n; i++) values[i] *= inv_n;
 
     reverse(values.begin() + 1, values.end());
     fft_iterative(n, values);
@@ -116,104 +110,103 @@ struct NTT {
   const int FFT_CUTOFF = 150;
 
   // Note:  can be used for a 2x speedup when only the  fully overlapping
-  // ranges are needed. It computes results using indices modulo the power-of-two FFT size; see the brute force below.
-  template<typename T>
-    vector<T> mod_multiply(const vector<T> &_left, const vector<T> &_right, bool circular = false) {
-      if (_left.empty() || _right.empty())
-        return {};
+  // ranges are needed. It computes results using indices modulo the
+  // power-of-two FFT size; see the brute force below.
+  template <typename T>
+  vector<T> mod_multiply(const vector<T> &_left, const vector<T> &_right,
+                         bool circular = false) {
+    if (_left.empty() || _right.empty()) return {};
 
-      vector<ntt_int> left(_left.begin(), _left.end());
-      vector<ntt_int> right(_right.begin(), _right.end());
+    vector<ntt_int> left(_left.begin(), _left.end());
+    vector<ntt_int> right(_right.begin(), _right.end());
 
-      int n = int(left.size());
-      int m = int(right.size());
+    int n = int(left.size());
+    int m = int(right.size());
 
-      int output_size = circular ? round_up_power_two(max(n, m)) : n + m - 1;
+    int output_size = circular ? round_up_power_two(max(n, m)) : n + m - 1;
 
-      // Brute force when either n or m is small enough.
-      if (min(n, m) < FFT_CUTOFF) {
-        auto &&mod_output_size = [&](int x) {
-          return x < output_size ? x : x - output_size;
-        };
-
-        static const uint64_t U64_BOUND = numeric_limits<uint64_t>::max() - uint64_t(MOD) * MOD;
-        vector<uint64_t> result(output_size, 0);
-
-        for (int i = 0; i < n; i++)
-          for (int j = 0; j < m; j++) {
-            int index = mod_output_size(i + j);
-            result[index] += uint64_t(left[i]) * uint64_t(right[j]);
-
-            if (result[index] > U64_BOUND)
-              result[index] %= MOD;
-          }
-
-        for (uint64_t &x : result)
-          if (x >= MOD)
-            x %= MOD;
-
-        return vector<T>(result.begin(), result.end());
-      }
-
-      int N = round_up_power_two(output_size);
-      left.resize(N, 0);
-      right.resize(N, 0);
-
-      if (left == right) {
-        fft_iterative(N, left);
-        right = left;
-      } else {
-        fft_iterative(N, left);
-        fft_iterative(N, right);
-      }
-
-      for (int i = 0; i < N; i++)
-        left[i] *= right[i];
-
-      invert_fft(N, left);
-      return vector<T>(left.begin(), left.begin() + output_size);
-    }
-
-  template<typename T>
-    vector<T> mod_power(const vector<T> &v, int exponent) {
-      assert(exponent >= 0);
-      vector<T> result = {1};
-
-      if (exponent == 0)
-        return result;
-
-      for (int k = 31 - __builtin_clz(exponent); k >= 0; k--) {
-        result = mod_multiply(result, result);
-
-        if (exponent >> k & 1)
-          result = mod_multiply(result, v);
-      }
-
-      return result;
-    }
-
-  // Multiplies many polynomials whose total degree is n in O(n log^2 n).
-  template<typename T>
-    vector<T> mod_multiply_all(const vector<vector<T>> &polynomials) {
-      if (polynomials.empty())
-        return {1};
-
-      struct compare_size {
-        bool operator()(const vector<T> &x, const vector<T> &y) {
-          return x.size() > y.size();
-        }
+    // Brute force when either n or m is small enough.
+    if (min(n, m) < FFT_CUTOFF) {
+      auto &&mod_output_size = [&](int x) {
+        return x < output_size ? x : x - output_size;
       };
 
-      priority_queue<vector<T>, vector<vector<T>>, compare_size> pq(polynomials.begin(), polynomials.end());
+      static const uint64_t U64_BOUND =
+          numeric_limits<uint64_t>::max() - uint64_t(MOD) * MOD;
+      vector<uint64_t> result(output_size, 0);
 
-      while (pq.size() > 1) {
-        vector<T> a = pq.top(); pq.pop();
-        vector<T> b = pq.top(); pq.pop();
-        pq.push(mod_multiply(a, b));
-      }
+      for (int i = 0; i < n; i++)
+        for (int j = 0; j < m; j++) {
+          int index = mod_output_size(i + j);
+          result[index] += uint64_t(left[i]) * uint64_t(right[j]);
 
-      return pq.top();
+          if (result[index] > U64_BOUND) result[index] %= MOD;
+        }
+
+      for (uint64_t &x : result)
+        if (x >= MOD) x %= MOD;
+
+      return vector<T>(result.begin(), result.end());
     }
+
+    int N = round_up_power_two(output_size);
+    left.resize(N, 0);
+    right.resize(N, 0);
+
+    if (left == right) {
+      fft_iterative(N, left);
+      right = left;
+    } else {
+      fft_iterative(N, left);
+      fft_iterative(N, right);
+    }
+
+    for (int i = 0; i < N; i++) left[i] *= right[i];
+
+    invert_fft(N, left);
+    return vector<T>(left.begin(), left.begin() + output_size);
+  }
+
+  template <typename T>
+  vector<T> mod_power(const vector<T> &v, int exponent) {
+    assert(exponent >= 0);
+    vector<T> result = {1};
+
+    if (exponent == 0) return result;
+
+    for (int k = 31 - __builtin_clz(exponent); k >= 0; k--) {
+      result = mod_multiply(result, result);
+
+      if (exponent >> k & 1) result = mod_multiply(result, v);
+    }
+
+    return result;
+  }
+
+  // Multiplies many polynomials whose total degree is n in O(n log^2 n).
+  template <typename T>
+  vector<T> mod_multiply_all(const vector<vector<T>> &polynomials) {
+    if (polynomials.empty()) return {1};
+
+    struct compare_size {
+      bool operator()(const vector<T> &x, const vector<T> &y) {
+        return x.size() > y.size();
+      }
+    };
+
+    priority_queue<vector<T>, vector<vector<T>>, compare_size> pq(
+        polynomials.begin(), polynomials.end());
+
+    while (pq.size() > 1) {
+      vector<T> a = pq.top();
+      pq.pop();
+      vector<T> b = pq.top();
+      pq.pop();
+      pq.push(mod_multiply(a, b));
+    }
+
+    return pq.top();
+  }
 };
 
 NTT<MOD> ntt;

@@ -9,15 +9,15 @@ struct Compress {
 
   Compress(const vector<T>& v) {
     compress = v;
-    sort(compress.begin(),compress.end());
-    compress.erase(unique(compress.begin(),compress.end()), compress.end());
+    sort(compress.begin(), compress.end());
+    compress.erase(unique(compress.begin(), compress.end()), compress.end());
   }
 
   int get(const T& x) const {
-    return lower_bound(compress.begin(),compress.end(),x) - compress.begin();
+    return lower_bound(compress.begin(), compress.end(), x) - compress.begin();
   }
   int size() const { return compress.size(); }
 
   int operator()(const T& x) const { return get(x); }
-  T operator[] (int idx) { return compress[idx]; }
+  T operator[](int idx) { return compress[idx]; }
 };

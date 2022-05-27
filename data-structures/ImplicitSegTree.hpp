@@ -14,36 +14,33 @@ struct SegTreeNode {
   int64_t sum = 0;
 
   // Segment for range [lb,rb]
-  SegTreeNode(int lb, int rb):l(lb),r(rb) {}
+  SegTreeNode(int lb, int rb) : l(lb), r(rb) {}
 
   void extend() {
-    if (left_child == nullptr && l+1 <= r) {
-      int M = (l+r)/2;
-      left_child = new SegTreeNode(l,M);
-      right_child = new SegTreeNode(M+1,r);
+    if (left_child == nullptr && l + 1 <= r) {
+      int M = (l + r) / 2;
+      left_child = new SegTreeNode(l, M);
+      right_child = new SegTreeNode(M + 1, r);
     }
   }
 
   void update(int pos, int val) {
     extend();
-    if (left_child) { 
+    if (left_child) {
       if (pos <= left_child->r)
-        left_child->update(pos,val);
+        left_child->update(pos, val);
       else
-        right_child->update(pos,val);
-      sum = left_child->sum + right_child->sum; // Combine results
-    }
-    else // leaf node
+        right_child->update(pos, val);
+      sum = left_child->sum + right_child->sum;  // Combine results
+    } else                                       // leaf node
       sum += val;
   }
 
   int64_t query(int ql, int qr) {
-    if (ql <= l && r <= qr)
-      return sum;
-    if (max(l,ql) > min(r,qr)) // no intersection, segtree identity
+    if (ql <= l && r <= qr) return sum;
+    if (max(l, ql) > min(r, qr))  // no intersection, segtree identity
       return 0;
     extend();
-    return left_child->query(ql,qr) + right_child->query(ql,qr);
+    return left_child->query(ql, qr) + right_child->query(ql, qr);
   }
 };
-

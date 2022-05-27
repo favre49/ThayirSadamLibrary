@@ -6,7 +6,7 @@ using namespace std;
 // overlapping intervals.
 // Intervals are [l,r)
 // Works in O(nlogn)
-struct IntervalContainer : set<pair<int,int>> {
+struct IntervalContainer : set<pair<int, int>> {
   iterator add_interval(int L, int R) {
     if (L == R) return end();
     auto it = lower_bound({L, R}), before = it;
@@ -19,15 +19,17 @@ struct IntervalContainer : set<pair<int,int>> {
       R = max(R, it->second);
       erase(it);
     }
-    return insert(before, {L,R});
+    return insert(before, {L, R});
   }
 
   void remove_interval(int L, int R) {
     if (L == R) return;
-    auto it = add_interval(L,R);
+    auto it = add_interval(L, R);
     auto r2 = it->second;
-    if (it->first == L) erase(it);
-    else (int&)it->second = L;
+    if (it->first == L)
+      erase(it);
+    else
+      (int&)it->second = L;
     if (R != r2) emplace(R, r2);
   }
 };

@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
+
 #include "../data-structures/LazySegTree.hpp"
 using namespace std;
-
 
 // Source: bqi343
 // Tested On: Yosupo Vertex Add Path Sum
@@ -16,8 +16,17 @@ struct HLD {
   vector<int64_t> val;
   LazySegTree<int64_t> T;
 
-  HLD(int _n, bool _usingEdge = false) : n(_n), adj(n), parent(n), root(n),
-  depth(n), sz(n), pos(n), usingEdge(_usingEdge), val(n),T(n) {}
+  HLD(int _n, bool _usingEdge = false)
+      : n(_n),
+        adj(n),
+        parent(n),
+        root(n),
+        depth(n),
+        sz(n),
+        pos(n),
+        usingEdge(_usingEdge),
+        val(n),
+        T(n) {}
 
   void add_edge(int u, int v) {
     adj[u].push_back(v);
@@ -28,12 +37,11 @@ struct HLD {
     sz[s] = 1;
     for (auto& u : adj[s]) {
       parent[u] = s;
-      depth[u] = depth[s]+1;
-      adj[u].erase(find(adj[u].begin(), adj[u].end(),s));
+      depth[u] = depth[s] + 1;
+      adj[u].erase(find(adj[u].begin(), adj[u].end(), s));
       size_dfs(u);
       sz[s] += sz[u];
-      if (sz[u] > sz[adj[s][0]])
-        swap(u,adj[s][0]);
+      if (sz[u] > sz[adj[s][0]]) swap(u, adj[s][0]);
     }
   }
 
@@ -58,30 +66,25 @@ struct HLD {
   }
 
   // Get LCA in log time
-  int lca(int u,int v) {
+  int lca(int u, int v) {
     for (; root[u] != root[v]; v = parent[root[v]])
-      if (depth[root[u]] > depth[root[v]])
-        swap(u,v);
+      if (depth[root[u]] > depth[root[v]]) swap(u, v);
     return depth[u] < depth[v] ? u : v;
   }
 
   template <class BinaryOp>
-    void process_path(int u, int v, BinaryOp op) {
-      for (; root[u] != root[v]; v = parent[root[v]]) {
-        if (depth[root[u]] > depth[root[v]])
-          swap(u,v);
-        op(pos[root[v]], pos[v]);
-      }
-      if (depth[u] > depth[v])
-        swap(u,v);
-      op(pos[u] + usingEdge, pos[v]);
+  void process_path(int u, int v, BinaryOp op) {
+    for (; root[u] != root[v]; v = parent[root[v]]) {
+      if (depth[root[u]] > depth[root[v]]) swap(u, v);
+      op(pos[root[v]], pos[v]);
     }
+    if (depth[u] > depth[v]) swap(u, v);
+    op(pos[u] + usingEdge, pos[v]);
+  }
 
   // Updates path from u to v
   void update(int u, int v, int64_t val) {
-    process_path(u,v,[this,&val](int l, int r) {
-        T.apply(l,r,val);
-    });
+    process_path(u, v, [this, &val](int l, int r) { T.apply(l, r, val); });
   }
 
   // Updates subtree of u
@@ -92,9 +95,7 @@ struct HLD {
   // Query path between u and v
   int64_t query(int u, int v) {
     int64_t res = 0;
-    process_path(u,v, [this, &res](int l, int r) {
-        res += T.query(l,r);
-    });
+    process_path(u, v, [this, &res](int l, int r) { res += T.query(l, r); });
     return res;
   }
 };

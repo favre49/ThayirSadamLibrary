@@ -30,7 +30,7 @@ struct MCMF {
     edges.emplace_back(edge_t{to, cap, cost});
     edges.emplace_back(edge_t{from, 0, -cost});
     adj[from].push_back(e);
-    adj[to].push_back(e+1);
+    adj[to].push_back(e + 1);
   }
 
   const cost_t INF_COST = std::numeric_limits<cost_t>::max() / 4;
@@ -46,7 +46,8 @@ struct MCMF {
     its[s] = q.push({0, s});
 
     while (!q.empty()) {
-      int i = q.top().second; q.pop();
+      int i = q.top().second;
+      q.pop();
       cost_t d = dist[i];
       for (int e : adj[i]) {
         if (edges[e].cap) {
@@ -69,27 +70,26 @@ struct MCMF {
 
   pair<flow_t, cost_t> maxflow(int s, int t) {
     assert(s != t);
-    flow_t totFlow = 0; cost_t totCost = 0;
+    flow_t totFlow = 0;
+    cost_t totCost = 0;
     while (path(s), pi[t] < INF_COST) {
       flow_t curFlow = std::numeric_limits<flow_t>::max();
-      for (int cur = t; cur != s; ) {
+      for (int cur = t; cur != s;) {
         int e = prv[cur];
-        int nxt = edges[e^1].dest;
+        int nxt = edges[e ^ 1].dest;
         curFlow = std::min(curFlow, edges[e].cap);
         cur = nxt;
       }
       totFlow += curFlow;
       totCost += pi[t] * curFlow;
-      for (int cur = t; cur != s; ) {
+      for (int cur = t; cur != s;) {
         int e = prv[cur];
-        int nxt = edges[e^1].dest;
+        int nxt = edges[e ^ 1].dest;
         edges[e].cap -= curFlow;
-        edges[e^1].cap += curFlow;
+        edges[e ^ 1].cap += curFlow;
         cur = nxt;
       }
     }
     return {totFlow, totCost};
   }
 };
-
-

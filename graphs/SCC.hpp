@@ -19,10 +19,8 @@ struct SCC {
   vector<vector<int>> components;
   vector<int> which_component;
 
-  SCC(int _n):n(_n) {
-    adj.resize(n);
-  }
-  SCC(vector<vector<int>>& _adj):n(_adj.size()), adj(_adj) {}
+  SCC(int _n) : n(_n) { adj.resize(n); }
+  SCC(vector<vector<int>>& _adj) : n(_adj.size()), adj(_adj) {}
 
   void add_edge(int u, int v) { adj[u].push_back(v); }
 
@@ -32,7 +30,7 @@ struct SCC {
     st[st_sz++] = v;
     in_st[v] = true;
 
-    for (int u : adj[v]){
+    for (int u : adj[v]) {
       if (tour_index[u] < 0) {
         tarjan(u);
         low_link[v] = min(low_link[v], low_link[u]);
@@ -48,26 +46,24 @@ struct SCC {
       do {
         x = st[--st_sz];
         in_st[x] = false;
-        which_component[x] = (int)components.size()-1;
+        which_component[x] = (int)components.size() - 1;
         component.push_back(x);
-      } while(x != v);
+      } while (x != v);
     }
   }
 
   void build() {
-    tour_index.assign(n,-1);
-    low_link.assign(n,-1);
-    which_component.assign(n,-1);
+    tour_index.assign(n, -1);
+    low_link.assign(n, -1);
+    which_component.assign(n, -1);
 
     st_sz = 0;
     st.resize(n);
     in_st.resize(n);
     tour = 0;
 
-    for (int i = 0; i < n; i++){
-      if (tour_index[i] < 0)
-        tarjan(i);
+    for (int i = 0; i < n; i++) {
+      if (tour_index[i] < 0) tarjan(i);
     }
   }
 };
-

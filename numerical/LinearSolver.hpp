@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
+
 #include "Matrix.hpp"
 using namespace std;
-
 
 // Source: hitonanode
 // Tested on: https://judge.yosupo.jp/problem/system_of_linear_equations
@@ -10,7 +10,8 @@ using namespace std;
 // Otherwise returns {solution, basis of solution space}
 // Rank = |basis of solution space|
 template <typename T>
-pair<vector<T>, vector<vector<T>>> system_of_linear_equations(Matrix<T> A, vector<T> b) {
+pair<vector<T>, vector<vector<T>>> system_of_linear_equations(Matrix<T> A,
+                                                              vector<T> b) {
   int n = A.N(), m = A.M();
   Matrix<T> M(n, m + 1);
   for (int i = 0; i < n; i++) {
@@ -22,7 +23,7 @@ pair<vector<T>, vector<vector<T>>> system_of_linear_equations(Matrix<T> A, vecto
   for (int i = 0; i < n; i++) {
     int j = 0;
     while (j <= m and M[i][j] == 0) j++;
-    if (j == m) { // No solution
+    if (j == m) {  // No solution
       return {{}, {}};
     }
     if (j < m) ss[j] = i;
@@ -42,5 +43,3 @@ pair<vector<T>, vector<vector<T>>> system_of_linear_equations(Matrix<T> A, vecto
   }
   return make_pair(x, D);
 }
-
-
