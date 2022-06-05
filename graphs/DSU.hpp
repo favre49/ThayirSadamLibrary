@@ -37,4 +37,14 @@ struct DSU {
     nodes[a].s += nodes[b].s;
     return true;
   }
+
+  vector<vector<int>> get_components() {
+    vector<vector<int>> g(nodes.size());
+    for (int i =0; i < nodes.size(); i++)
+      g[find(i)].push_back(i);
+    g.erase(remove_if(g.begin(), g.end(), [&](vector<int>& v)->bool {
+      return v.empty();
+    }), g.end());
+    return g;
+  }
 };
