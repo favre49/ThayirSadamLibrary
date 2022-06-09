@@ -30,26 +30,7 @@ def get_code_files(path):
 def generate_snippet(code_filename):
     with open(code_filename, 'r') as code_file:
         code_file_content = code_file.read()
-
     snippet_content = ''
-
-    # Get recursive dependencies
-    all_includes = re.findall(r'#include[ ]+(.*$)', code_file_content, re.MULTILINE)
-    current_dir = os.path.dirname(code_filename)
-    for include_file_rel in all_includes:
-        # just default
-        if include_file_rel == '"bits/stdc++.h"' or include_file_rel == '"bits/extc++.h"' or \
-           include_file_rel == '<bits/stdc++.h>' or include_file_rel == '<bits/extc++.h>':
-            continue
-        include_file_rel = include_file_rel[1:-1]
-        # path is relative
-        if include_file_rel[0:3] == '../':
-            include_file_rel = include_file_rel[3:]
-            include_file_abs = os.path.join(os.path.dirname(current_dir), include_file_rel)
-            snippet_content += generate_snippet(include_file_abs)
-        else:
-            include_file_abs = os.path.join(current_dir, include_file_rel)
-            snippet_content += generate_snippet(include_file_abs)
 
     # Get snippet from file
     cutoff_occ = code_file_content.find(CUTOFF_LINE)
