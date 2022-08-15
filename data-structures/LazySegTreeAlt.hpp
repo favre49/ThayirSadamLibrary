@@ -84,8 +84,8 @@ struct LazySegTree {
                              int tl, int tr) {
     push(node);
     if (tl == tr) return tl;
-    int tm = (tl + tr) / 2;
-    int res;
+    int tm = (tl + tr) / 2, res;
+    push(2*node); push(2*node+1);
     if (f(t[2 * node]))
       res = search_first_knowingly(f, 2 * node, tl, tm);
     else
@@ -117,8 +117,8 @@ struct LazySegTree {
                             int tr) {
     push(node);
     if (tl == tr) return tl;
-    int tm = (tl + tr) / 2;
-    int res;
+    int tm = (tl + tr) / 2, res;
+    push(2*node); push(2*node+1);
     if (f(t[2 * node + 1]))
       res = search_last_knowingly(f, 2 * node + 1, tm + 1, tr);
     else
